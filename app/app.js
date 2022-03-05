@@ -28,6 +28,15 @@ const app = {
                 ctx.drawImage(square, i * 25, j * 25); // Insertion d'une image de fond pour chaque carré
             }
         }
+
+        ctx.fillStyle = '#5D7984'; // Définition de la couleur de remplissage
+        ctx.fillRect(250, 0, 300, 275); // Création d'un rectangle positionné dans le coin supérieur droit
+        ctx.fillRect(250, 275, 300, 275); // Création d'un rectangle positionné dans le coin inférieur droit
+        ctx.lineWidth = 3; // Définition de la largeur de contour
+        ctx.strokeRect(0, 0, 250, 550); // Création du contour autour de la grille de jeu
+        ctx.strokeRect(250, 0, 300, 275); // Création du contour autour du rectangle supérieur droit
+        ctx.strokeRect(250, 275, 300, 275); // Création du contour autour du rectangle inférieur droit
+        
     },
 }
 
