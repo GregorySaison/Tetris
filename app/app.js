@@ -12,8 +12,8 @@ const app = {
     createBoard: () => {
         // ---------- CREATION DU CANVA ---------- //
         const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
-        board.width = 500; // Definition de la largeur de l'élement canva
-        board.height = 500; // Definition de la hauteur de l'élement canva
+        board.width = 550; // Definition de la largeur de l'élement canva
+        board.height = 550; // Definition de la hauteur de l'élement canva
         const ctx = board.getContext('2d'); // Définition du canva sur un modèle de dessin 2D
 
         // ---------- CREATION DE LA GRILLE DE JEU ---------- //
