@@ -12,8 +12,8 @@ const app = {
     createBoard: () => {
         // ---------- CREATION DU CANVA ---------- //
         const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
-        board.width = 500; // Definition de la largeur de l'élement canva
-        board.height = 500; // Definition de la hauteur de l'élement canva
+        board.width = 550; // Definition de la largeur de l'élement canva
+        board.height = 550; // Definition de la hauteur de l'élement canva
         const ctx = board.getContext('2d'); // Définition du canva sur un modèle de dessin 2D
 
         // ---------- CREATION DE LA GRILLE DE JEU ---------- //
@@ -28,6 +28,15 @@ const app = {
                 ctx.drawImage(square, i * 25, j * 25); // Insertion d'une image de fond pour chaque carré
             }
         }
+
+        ctx.fillStyle = '#5D7984'; // Définition de la couleur de remplissage
+        ctx.fillRect(250, 0, 300, 275); // Création d'un rectangle positionné dans le coin supérieur droit
+        ctx.fillRect(250, 275, 300, 275); // Création d'un rectangle positionné dans le coin inférieur droit
+        ctx.lineWidth = 3; // Définition de la largeur de contour
+        ctx.strokeRect(0, 0, 250, 550); // Création du contour autour de la grille de jeu
+        ctx.strokeRect(250, 0, 300, 275); // Création du contour autour du rectangle supérieur droit
+        ctx.strokeRect(250, 275, 300, 275); // Création du contour autour du rectangle inférieur droit
+        
     },
 }
 
