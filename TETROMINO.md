@@ -21,5 +21,5 @@ Ne pourrait-on pas faire comprendre au programme où se placer dans cette grille
 Logiquement cela nécessiterait, comme pour la variable colors, de créer un conteneur qui aurait l'ensemble des coordonnées spécifique a chaque pièce.
 Lorsque la classe choisirait au hasard parmi ces coordonnées pour créer l'instance, on aurait alors déjà la forme de la pièce prédéfini
 
-Il ne s'agirait donc plus que de passer cette propriété de l'instance dans une fonction qui se chargerait alors de créer réellement la pièce en en rapport avec cette instance.
+Il ne s'agirait donc plus que de passer cette propriété de l'instance dans une fonction qui se chargerait alors de créer réellement la pièce en en rapport avec les coordonnées choisi aléatoirement.
 

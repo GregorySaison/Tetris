@@ -1,15 +1,35 @@
+const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
+board.width = 550; // Definition de la largeur de l'élement canva
+board.height = 550; // Definition de la hauteur de l'élement canva
+const ctx = board.getContext('2d'); // Définition du canva sur un modèle de dessin 2D
+
 var square = new Image(); // Creation d'un nouvel objet image dans une variable square
 square.src = "img/square.png"; // Définition de la photo associé dans ce nouvel objet image
 
 // Ensemble de couleurs dans lesquels la classe ira piocher pour définir une couleur aux pièces
 const colors = ['#EE2733', '#F89622', '#FDE100', '#4EB748', '#2BACE2', '#005A9D', '#922B8C'];
 
+// Ensemble de données permettant les décalages en px nécessaire suivant l'axe x et y du canva pour dessiner les trois autres blocs au bon endroit en fonction du bloc d'origine commun a chaque type de pièce. 
+const coordinates = [
+    [{x: 25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}],
+    [{x: -25, y: 0}, {x: 25, y: 0}, {x: 50, y: 0}],
+    [{x: 25, y: 0}, {x: 50, y: 0}, {x: 25, y: 25}],
+    [{x: 0, y: 25}, {x: 25, y: 25}, {x: 50, y: 25}],
+    [{x: 0, y: 25}, {x: -25, y: 25}, {x: -50, y: 25}],
+    [{x: 25, y: 0}, {x: 0, y: 25}, {x: -25, y: 25}],
+    [{x: -25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}]
+]
+
 // Classe permettant la création d'instance comportant les propriétés des pièces de jeu
 class Tetromino { 
+    origin; // Je veux définir un point d'entrée de construction de la pièce entièrement visible et au centre horizontale de la grille tout en haut de celle-ci
     color;
+    shape;
 
-    constructor(color) { // On ferait un math random sur le tableau pour choisir un element au hasard en argument
+    constructor(color, origin, shape) { 
         this.color = color;
+        this.origin = origin;
+        this.shape = shape;
     };
 };
 
@@ -23,12 +43,6 @@ const app = {
 
     // Methode de création de l'ensemble des élements design du projet
     createBoard: () => {
-        // ---------- CREATION DU CANVA ---------- //
-        const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
-        board.width = 550; // Definition de la largeur de l'élement canva
-        board.height = 550; // Definition de la hauteur de l'élement canva
-        const ctx = board.getContext('2d'); // Définition du canva sur un modèle de dessin 2D
-
         // ---------- CREATION DE LA GRILLE DE JEU ---------- //
         let grid = new Array(22); // Création d'un array avec 22 élements vides dans la variable grid
         for (let i=0; i<grid.length; i++) { // Boucle sur les 22 elements vides de l'array
@@ -42,6 +56,7 @@ const app = {
             }
         }
 
+        // ---------- CREATION DES CONTOURS ET DU TABLEAU DE BORD DU JEU---------- //
         ctx.fillStyle = '#5D7984'; // Définition de la couleur de remplissage
         ctx.fillRect(250, 0, 300, 275); // Création d'un rectangle positionné dans le coin supérieur droit
         ctx.fillRect(250, 275, 300, 275); // Création d'un rectangle positionné dans le coin inférieur droit
@@ -66,9 +81,18 @@ const app = {
 
     // Methode de création des pièces de jeu
     createTetromino: () => {
-        let currentTetromino = new Tetromino(colors[Math.floor(Math.random() * colors.length)], )
-        
+        let currentTetromino = new Tetromino(colors[Math.floor(Math.random() * colors.length)], {x: 75, y: 0}, coordinates[Math.floor(Math.random() * coordinates.length)])
+
         ctx.fillStyle = currentTetromino.color;
+        for(let i=0; i<4; i++) {
+            if(i != 0) {
+                whereToDraw = {x: currentTetromino.origin.x + currentTetromino.shape[i-1].x , y: currentTetromino.origin.y + currentTetromino.shape[i-1].y}
+                ctx.fillRect(whereToDraw.x, whereToDraw.y, 25, 25 );
+            } else { // Quand i est a 0, il dessine sur le canva le bloc d'origine ayant déjà les coordonnées défini dans chaque instance au sein de la propriété origin
+                whereToDraw = currentTetromino.origin;
+                ctx.fillRect(whereToDraw.x, whereToDraw.y, 25, 25);
+            }
+        }
 
     }
 }
