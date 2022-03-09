@@ -18,7 +18,15 @@ const coordinates = [
     [{x: 0, y: 25}, {x: -25, y: 25}, {x: -50, y: 25}],
     [{x: 25, y: 0}, {x: 0, y: 25}, {x: -25, y: 25}],
     [{x: -25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}]
-]
+];
+
+let pressedKey = null;
+
+const controlList = {
+    moveDown: 'ArrowDown',
+    moveLeft: 'ArrowLeft',
+    moveRight: 'ArrowRight'
+};
 
 // Classe permettant la création d'instance comportant les propriétés des pièces de jeu
 class Tetromino { 
@@ -39,24 +47,15 @@ const app = {
     init: () => {
         let currentTetromino = new Tetromino(colors[Math.floor(Math.random() * colors.length)], {x: 75, y: 0}, coordinates[Math.floor(Math.random() * coordinates.length)]) 
 
+        app.createGrid();
         app.createBoard(); // On doit créer les élements de design du jeu
         app.createTetromino(currentTetromino); // On doit créer les pièces de départ dès le lancement du jeu
+        app.controlTetromino(currentTetromino);
     },
 
     // Methode de création de l'ensemble des élements design du projet
     createBoard: () => {
         // ---------- CREATION DE LA GRILLE DE JEU ---------- //
-        let grid = new Array(22); // Création d'un array avec 22 élements vides dans la variable grid
-        for (let i=0; i<grid.length; i++) { // Boucle sur les 22 elements vides de l'array
-            grid[i] = new Array(10); // Création dans chaque element d'un nouveau array contenant 10 élements vides
-        }
-
-        for(let i=0; i<10; i++) { // Création d'une boucle sur les colonnes de grid
-            for(let j=0; j<22; j++) { // Et sur les cellules qui les compose
-                ctx.fillRect(i * 25, j * 25, 25, 25 ); // Création d'un carré 25x25 a des coordonnées progressivement décalées
-                ctx.drawImage(square, i * 25, j * 25); // Insertion d'une image de fond pour chaque carré
-            }
-        }
 
         // ---------- CREATION DES CONTOURS ET DU TABLEAU DE BORD DU JEU---------- //
         ctx.fillStyle = '#5D7984'; // Définition de la couleur de remplissage
@@ -93,6 +92,47 @@ const app = {
                 ctx.fillRect(whereToDraw.x, whereToDraw.y, 25, 25);
             }
         }
+    },
+
+    controlTetromino: (arg) => {
+        document.addEventListener("keydown", (e) => {
+            pressedKey = e.code;
+
+            if(pressedKey === 'ArrowDown') {
+                arg.origin.y += 25;
+            } else if(pressedKey === 'ArrowRight') {
+                arg.origin.x += 25;
+            } else if(pressedKey === 'ArrowLeft') {
+                arg.origin.x -= 25;
+            }
+
+            app.resetGrid();
+            app.createGrid();
+            app.createTetromino(arg);
+        });
+
+        document.addEventListener("keyup", (e) => {
+            pressedKey = null;
+
+        })
+    },
+
+    createGrid: () => {
+        let grid = new Array(22); // Création d'un array avec 22 élements vides dans la variable grid
+        for (let i=0; i<grid.length; i++) { // Boucle sur les 22 elements vides de l'array
+            grid[i] = new Array(10); // Création dans chaque element d'un nouveau array contenant 10 élements vides
+        }
+
+        for(let i=0; i<10; i++) { // Création d'une boucle sur les colonnes de grid
+            for(let j=0; j<22; j++) { // Et sur les cellules qui les compose
+                ctx.fillRect(i * 25, j * 25, 25, 25 ); // Création d'un carré 25x25 a des coordonnées progressivement décalées
+                ctx.drawImage(square, i * 25, j * 25); // Insertion d'une image de fond pour chaque carré
+            }
+        }
+    },
+    
+    resetGrid: () => {
+        ctx.clearRect(0, 0, 250, 550);
     }
 }
 
