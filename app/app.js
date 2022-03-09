@@ -37,8 +37,10 @@ class Tetromino {
 const app = {
     // Méthode de lancement de l'ensemble des élements vitals au projet lors de son initialisation
     init: () => {
+        let currentTetromino = new Tetromino(colors[Math.floor(Math.random() * colors.length)], {x: 75, y: 0}, coordinates[Math.floor(Math.random() * coordinates.length)]) 
+
         app.createBoard(); // On doit créer les élements de design du jeu
-        app.createTetromino(); // On doit créer les pièces de départ dès le lancement du jeu
+        app.createTetromino(currentTetromino); // On doit créer les pièces de départ dès le lancement du jeu
     },
 
     // Methode de création de l'ensemble des élements design du projet
@@ -80,20 +82,17 @@ const app = {
     },
 
     // Methode de création des pièces de jeu
-    createTetromino: () => {
-        let currentTetromino = new Tetromino(colors[Math.floor(Math.random() * colors.length)], {x: 75, y: 0}, coordinates[Math.floor(Math.random() * coordinates.length)])
-
-        ctx.fillStyle = currentTetromino.color;
+    createTetromino: (arg) => {
+        ctx.fillStyle = arg.color;
         for(let i=0; i<4; i++) {
             if(i != 0) {
-                whereToDraw = {x: currentTetromino.origin.x + currentTetromino.shape[i-1].x , y: currentTetromino.origin.y + currentTetromino.shape[i-1].y}
+                whereToDraw = {x: arg.origin.x + arg.shape[i-1].x , y: arg.origin.y + arg.shape[i-1].y}
                 ctx.fillRect(whereToDraw.x, whereToDraw.y, 25, 25 );
             } else { // Quand i est a 0, il dessine sur le canva le bloc d'origine ayant déjà les coordonnées défini dans chaque instance au sein de la propriété origin
-                whereToDraw = currentTetromino.origin;
+                whereToDraw = arg.origin;
                 ctx.fillRect(whereToDraw.x, whereToDraw.y, 25, 25);
             }
         }
-
     }
 }
 
