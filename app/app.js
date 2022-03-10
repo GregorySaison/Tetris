@@ -1,3 +1,5 @@
+// import Tetromino from './Tetromino.js';
+
 const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
 board.width = 550; // Definition de la largeur de l'élement canva
 board.height = 550; // Definition de la hauteur de l'élement canva
@@ -29,18 +31,18 @@ const controlList = {
     rotate: 'KeyC'
 };
 
-// Classe permettant la création d'instance comportant les propriétés des pièces de jeu
-class Tetromino { 
+export default class Tetromino {
     origin; // Je veux définir un point d'entrée de construction de la pièce entièrement visible et au centre horizontale de la grille tout en haut de celle-ci
     color;
     shape;
 
-    constructor(color, origin, shape) { 
+    constructor(color, origin, shape) {
         this.color = color;
         this.origin = origin;
         this.shape = shape;
     };
 };
+
 
 // Objet d'environnement de configuration du projet
 const app = {
