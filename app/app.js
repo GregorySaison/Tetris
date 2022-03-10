@@ -1,4 +1,4 @@
-// import Tetromino from './Tetromino.js';
+import Tetromino from './Tetromino.js';
 
 const board = document.getElementById('board'); // Récupération de l'élement HTML canvas
 board.width = 550; // Definition de la largeur de l'élement canva
@@ -24,25 +24,16 @@ const coordinates = [
 
 let pressedKey = null;
 
+// Sans cette ligne j'avais: 
+// Uncaught ReferenceError: assignment to undeclared variable whereToDraw
+let whereToDraw = null;
+
 const controlList = {
     moveDown: 'ArrowDown',
     moveLeft: 'ArrowLeft',
     moveRight: 'ArrowRight',
     rotate: 'KeyC'
 };
-
-export default class Tetromino {
-    origin; // Je veux définir un point d'entrée de construction de la pièce entièrement visible et au centre horizontale de la grille tout en haut de celle-ci
-    color;
-    shape;
-
-    constructor(color, origin, shape) {
-        this.color = color;
-        this.origin = origin;
-        this.shape = shape;
-    };
-};
-
 
 // Objet d'environnement de configuration du projet
 const app = {
