@@ -19,30 +19,31 @@ CETTE METHODE NE FONCTIONNERA PAS ---> DEFORMATION DES PIECES
 
 Si j'essaie de prendre le cas pratique par exemple de la pièce carré
 Ici, 0 représente le bloc d'origine de création, 1 représente les blocs crées en fonction de ce bloc origine 
-Les coordonnées de création de la pièce carré sont les suivantes : 
-[{x: 0, y: 25}, {x: 25, y: 25}, {x: 25, y: 0}]
-[0][1]
+Les coordonnées de création de la pièce carré sont les suivantes :   
+[{x: 0, y: 25}, {x: 25, y: 25}, {x: 25, y: 0}]  
+<br>
+[0][1]  
 [1][1]
 
 Si je crée une rotation de la piéce dans ce sens, quelles serait les nouvelles coordonnées de la pièce ? 
-[1][0]
+[1][0]  
 [1][1]   
 
-On se retrouve avec trois nouvelles coordonnées de décalage pour créer cette nouvelle pièce :
+On se retrouve avec trois nouvelles coordonnées de décalage pour créer cette nouvelle pièce :  
 [{x: -25, y: 0}, {x: -25, y: 25}, {x: 0, y: 25}]
 
-Par la suite on aura :
-[1][1]
-[1][0] 
+Par la suite on aura :  
+[1][1]  
+[1][0]   
 [{x: 0, y: -25}, {x: -25, y: -25}, {x: -25, y: 0}]
 
-[1][1]
-[0][1] 
+[1][1]  
+[0][1]   
 [{x: 25, y: 0}, {x: 25, y: -25}, {x: 0, y: -25}]
 
-On revient a la position de départ au moment de la création de la pièce.
-[0][1]
-[1][1] 
+On revient a la position de départ au moment de la création de la pièce.  
+[0][1]  
+[1][1]   
 [{x: 0, y: 25}, {x: 25, y: 25}, {x: 25, y: 0}]
 
 
@@ -52,11 +53,20 @@ En effet, a chaque fois la nouvelle valeur de la coordonnées y est égal a l'an
 Je pourrais alors définir une logique en fonction de ce pattern pour créer la rotation des pièces lorsque la touche du clavier concerné sera appuyé.
 Mais-est-ce que ce constat est correct pour l'ensemble des formes de pièces ? Je dois vérifier cela.
 
-[{x: -25, y: 0}, {x: 25, y: 0}, {x: 50, y: 0}]           [{x: 0, y: -25}, {x: 0, y:25}, {x: 0, y: 50}],
-[{x: 0, y: 25}, {x: 25, y: 25}, {x: 50, y: 25}]          [{x: -25, y: 0}, {x: -25, y: 25}, {x: -25, y: 50}]
-[{x: 0, y: 25}, {x: -25, y: 25}, {x: -50, y: 25}]        [{x: -25, y: 0}, {x: -25, y: -25}, {x: -25, y: -50}]
-[{x: 25, y: 0}, {x: 0, y: 25}, {x: -25, y: 25}]          [{x: 0, y: 25}, {x: -25, y: 0}, {x: -25, y: -25}]
-[{x: -25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}]          [{x: 0, y: 25}, {x: -25, y: 0}, {x: -25, y: 25}]
+[{x: -25, y: 0}, {x: 25, y: 0}, {x: 50, y: 0}]           
+[{x: 0, y: -25}, {x: 0, y:25}, {x: 0, y: 50}]
+
+[{x: 0, y: 25}, {x: 25, y: 25}, {x: 50, y: 25}]          
+[{x: -25, y: 0}, {x: -25, y: 25}, {x: -25, y: 50}]
+
+[{x: 0, y: 25}, {x: -25, y: 25}, {x: -50, y: 25}]        
+[{x: -25, y: 0}, {x: -25, y: -25}, {x: -25, y: -50}]
+
+[{x: 25, y: 0}, {x: 0, y: 25}, {x: -25, y: 25}]         
+[{x: 0, y: 25}, {x: -25, y: 0}, {x: -25, y: -25}]
+
+[{x: -25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}]          
+[{x: 0, y: 25}, {x: -25, y: 0}, {x: -25, y: 25}]
 
 
 On a ici un concept qui fonctionne.
