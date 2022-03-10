@@ -11,7 +11,7 @@ const colors = ['#EE2733', '#F89622', '#FDE100', '#4EB748', '#2BACE2', '#005A9D'
 
 // Ensemble de données permettant les décalages en px nécessaire suivant l'axe x et y du canva pour dessiner les trois autres blocs au bon endroit en fonction du bloc d'origine commun a chaque type de pièce. 
 const coordinates = [
-    [{x: 25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}],
+    [{x: 25, y: 0}, {x: 0, y: 25}, {x: 25, y: 25}],  
     [{x: -25, y: 0}, {x: 25, y: 0}, {x: 50, y: 0}],
     [{x: 25, y: 0}, {x: 50, y: 0}, {x: 25, y: 25}],
     [{x: 0, y: 25}, {x: 25, y: 25}, {x: 50, y: 25}],
@@ -25,7 +25,8 @@ let pressedKey = null;
 const controlList = {
     moveDown: 'ArrowDown',
     moveLeft: 'ArrowLeft',
-    moveRight: 'ArrowRight'
+    moveRight: 'ArrowRight',
+    rotate: 'KeyC'
 };
 
 // Classe permettant la création d'instance comportant les propriétés des pièces de jeu
@@ -55,8 +56,6 @@ const app = {
 
     // Methode de création de l'ensemble des élements design du projet
     createBoard: () => {
-        // ---------- CREATION DE LA GRILLE DE JEU ---------- //
-
         // ---------- CREATION DES CONTOURS ET DU TABLEAU DE BORD DU JEU---------- //
         ctx.fillStyle = '#5D7984'; // Définition de la couleur de remplissage
         ctx.fillRect(250, 0, 300, 275); // Création d'un rectangle positionné dans le coin supérieur droit
@@ -97,13 +96,20 @@ const app = {
     controlTetromino: (arg) => {
         document.addEventListener("keydown", (e) => {
             pressedKey = e.code;
+            console.log(pressedKey);
 
-            if(pressedKey === 'ArrowDown') {
+            if(pressedKey === controlList.moveDown) {
                 arg.origin.y += 25;
-            } else if(pressedKey === 'ArrowRight') {
+            } else if(pressedKey === controlList.moveRight) {
                 arg.origin.x += 25;
-            } else if(pressedKey === 'ArrowLeft') {
+            } else if(pressedKey === controlList.moveLeft) {
                 arg.origin.x -= 25;
+            } else if(pressedKey === controlList.rotate) {
+                for(let i=0; i<3; i++) {
+                    let position = arg.shape[i];
+                    let newPosition = {x: -position.y, y: position.x};
+                    arg.shape[i] = newPosition;
+                }
             }
 
             app.resetGrid();
